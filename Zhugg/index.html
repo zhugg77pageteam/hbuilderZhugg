@@ -1,0 +1,110 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			body{background-color: #FFFFFF;}
+			.mui-content{background-color: #FFFFFF;z-index: 9;}
+			header{padding-right: 15px;background-color: #FFFFFF;height:10%;z-index: 9;}
+			header img{height: 90%;border-radius: 50%;position: absolute;top: 5%;bottom: 5%;z-index: 9;}
+			header h1{color: royalblue;font-size: 22px;position: absolute;top: 0.2rem;z-index: 9;}
+			.mui-bar-nav{top:0;-webkit-box-shadow:0 1px 6px #FFFFFF;box-shadow:0 1px 6px #FFFFFF}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		   <img src="images/user-photo.png" >
+		   <h1 class="mui-title">Me</h1>
+		</header>
+		<footer class="mui-bar mui-bar-footer">
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="Me.html">
+				<span class="mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">Me</span>
+			</a>
+			<a class="mui-tab-item" href="TaskEntry.html">
+				<span class="mui-icon mui-icon-person"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">TaskEntry</span>
+			</a>
+			<a class="mui-tab-item" href="RankingList.html">
+				<span class="mui-icon mui-icon-pengyouquan"></span>
+				<span class="mui-tab-label">RankingList</span>
+			</a>
+		</nav>
+		</footer>
+		
+		<div class="mui-scroll-wrapper mui-content">
+		   <div class="mui-scroll">
+			<div class="mui-input-row mui-search">
+				<input type="search" class="mui-input-speech mui-input-clear" placeholder="搜点什么吧~">
+			</div>
+		   <ul class="mui-table-view ">
+				<li class="mui-table-view-cell mui-media">
+				     <a href="javascript:;">
+				        <img class="mui-media-object mui-pull-left" src="images/user-photo.png">
+				        <div class="mui-media-body" >
+				                               第一个 <span class="mui-pull-right" style="color: #C1C1C1">19:00</span>
+				                <p class='mui-ellipsis' style="width: 80%;">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？ </p>
+				                <span class="mui-badge mui-badge-danger mui-pull-right" style="position: absolute;top: 2.3rem;right:  1.4rem">9</span>
+				        </div>
+				     </a>
+				</li>
+			</ul>
+			</div>
+		</div>
+		
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/jquery-1.7.1.min.js" ></script>
+		<script>
+			mui.init();
+            mui.ready(function(){
+            	//中间滚动
+            	mui(".mui-scroll-wrapper").scroll({
+					deceleration: 0.0005
+				}); 
+				var user = window.localStorage.getItem('user');  //登陆后获取session
+				var u=JSON.parse(user);
+                if (null==user) {
+                	console.log("未登录",u)
+                } else{
+                	console.log("已登录",u)
+                }
+	           //底部切换
+	           var pages=["Me.html","TaskEntry.html","RankingList.html"];//底部页面集合
+			   var currview;  //当前页面
+				console.log(mui.currentWebview.id)
+				currview=mui.currentWebview;
+				//循环页面 
+				mui.each(pages,function(i,e){ 
+						//创建子页面
+						var view=plus.webview.create(e,e,{top:"0px",bottom:"51px"});
+						currview.append(view);
+						if(i!=0){
+							view.hide();
+						}
+				});
+					
+				mui('.mui-bar-tab').on('tap', 'a', function(){
+					var href=this.getAttribute("href");
+					console.log("href------------->"+href)
+					var view=plus.webview.getWebviewById(href); 
+					if(href=="Me.html"){
+						mui.fire(view,"gzl");
+					}
+						view.show();
+				});
+
+//              var self = plus.webview.currentWebview();
+//              var name = self.name;
+//              console.log(name);
+                
+                
+            });
+		</script>
+	</body>
+
+</html>
