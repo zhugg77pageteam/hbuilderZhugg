@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title></title>
 	</head>
 	<link href="css/mui.min.css" rel="stylesheet" />
 	<body>
 	<div id="segmentedControl" class="mui-segmented-control">
-		<a class="mui-control-item mui-active" href="#item1mobile" ranktype="1">
+		<a class="mui-control-item " href="#item1mobile" ranktype="1">
 				Today
 		</a>
 		<a class="mui-control-item" href="#item2mobile" ranktype="2">
 				Week
 		</a>
-		<a class="mui-control-item" href="#item3mobile" ranktype="0">
+		<a class="mui-control-item mui-active" href="#item3mobile" ranktype="0">
 				Total
 		</a>
 	</div>
 	<div class="mui-content-padded">
-		<div id="item1mobile" class="mui-control-content mui-active">
+		<div id="item1mobile" class="mui-control-content ">
 			Temporarily no data ~
 		</div>
 		<div id="item2mobile" class="mui-control-content ">
 			Temporarily no data ~
 		</div>
-		<div id="item3mobile" class="mui-control-content ">
+		<div id="item3mobile" class="mui-control-content mui-active">
 			<ul class="mui-table-view">
 			<li class="mui-table-view-cell  mui-left">
 				<span class="mui-icon mui-icon-contact"></span> Item 3
@@ -47,10 +50,12 @@
 		<script>
 			mui.init();
 			mui.ready(function () {
-				mui('a').on('tap','',function(){
-				  
-				}) 
-			   getRankingList(0);	
+				  getRankingList(0);
+				  mui('#segmentedControl').on('tap','a',function(){
+			       var type= this.getAttribute("ranktype");
+			      getRankingList(type);	
+			    });
+			  
 			}) 
 			
 			function getRankingList(type){
@@ -73,26 +78,9 @@
 						}
 					},
 					error:function(xhr,type,errorThrown){
-						console.log(xhr)
+						console.log(type)
 					}
 				});
-				mui.ajax('https://ttl.avst.cn/s14/outsideaction/wxSAction/getWorkRanking',{
-				data:{
-						ranktype:"all", 
-		   				rankcount:10,
-		   				openid:"865932025880228",
-		   				appid:"HAPP"
-					},
-				dataType:'jsonp',//服务器返回json格式数据
-				type:'get',//HTTP请求类型
-				success:function(data){
-						if(null!=data&&data.actioncode=='SUCCESS'){
-							console.log(data)
-						}else{
-							mui.alert(data.message)
-						}
-					},
-			});
 			}
 			
 		</script>
