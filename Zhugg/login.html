@@ -65,20 +65,18 @@
 		<script src="js/app.js"></script>
 		<script src="js/jquery-1.7.1.min.js" ></script>
 		<script>
+			
+			login();
 			if(window.plus){
 				mui.plusReady(function () {
 				    login();
 				})
 			}else{
-				mui.alert("请在真机运行"); 
+				mui.alert("请在真机运行");  
 			}
 			
 			//登陆
 		   	function login(){
-		   		plus.nativeUI.alert( "Plus is ready!", function(){
-					console.log( "User pressed!" );
-				}, "nativeUI", "OK" );
-		   		
 		   		document.getElementById('login').addEventListener('tap',function(){
 				var username=$("#username").val();
 				var password=$("#password").val();

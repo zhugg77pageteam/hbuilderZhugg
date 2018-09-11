@@ -6,9 +6,18 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title></title>
+		<style>
+			#segmentedControl{
+				background-color: #FFFFFF;
+			}
+		</style>
 	</head>
 	<link href="css/mui.min.css" rel="stylesheet" />
 	<body>
+	<header class="mui-bar mui-bar-nav">
+		   <h1 class="mui-title">排行榜</h1>
+	</header>
+	<div class="mui-scroll-wrapper mui-content" >
 	<div id="segmentedControl" class="mui-segmented-control">
 		<a class="mui-control-item " href="#item1mobile" ranktype="1">
 				Today
@@ -44,7 +53,8 @@
 		</ul>
 		</div>
 	</div>
-        <script src="js/mui.min.js"></script>
+	</div>
+        <script src="js/mui.js"></script>
 		<script src="js/mui.enterfocus.js"></script>
 		<script src="js/app.js"></script>
 		<script>
@@ -55,7 +65,6 @@
 			       var type= this.getAttribute("ranktype");
 			      getRankingList(type);	
 			    });
-			  
 			}) 
 			
 			function getRankingList(type){
